@@ -1,57 +1,60 @@
-# Project Name
+# MicroProfile Hello Azure Sample
 
-(short, 1-3 sentenced, description of the project)
+This is a sample Eclipse [MicroProfile](https://microprofile.io) project that exposes one REST API using JAX-RS, and enables the Health API.
 
-## Features
+Diving into the `src` directory, we will eventually discover the `Application` class reproduced below:
 
-This project framework provides the following features:
+```java
+@ApplicationPath("/api")
+public class Application extends javax.ws.rs.core.Application { }
+```
 
-* Feature 1
-* Feature 2
-* ...
+The `@ApplicationPath("/api")` annotation specifies the base endpoint for this microservice - that is, that all endpoints will have `/api` preceed the rest of the URL required to access any specific REST endpoint.
 
-## Getting Started
+Inside the `api` package is a class named `API`, which contains the following code:
 
-### Prerequisites
+```java
+@ApplicationScoped
+@Path("/api")
+public class API {
 
-(ideally very short, if any)
+  @GET
+  @Path("/hello")
+  @Produces(TEXT_PLAIN)
+  public String info() {
+    return "Hello, Azure!";
+  }
+}
+```
 
-- OS
-- Library version
-- ...
+Through the use of the `@Path("/hello")` annotation, we can see that this REST endpoint, when combined with the `/api` specified in the `Application` class, will be `/api/hello`. When this endpoint is called using an HTTP GET request, we can see that the method will produce text/html, and in fact it is simply a hard-coded string "Hello, Azure!".  We have now covered all the code required to create a microservice using MicroProfile. We can now use Apache Maven to build and package the WAR file.
 
-### Installation
+## Build and Package
 
-(ideally very short)
+This project can be built, packaged, and deployed to any MicroProfile implementation that is compatible with MicroProfile 1.4+.
 
-- npm install [package name]
-- mvn install
-- ...
+1. Run `mvn clean package` and wait until it successfully completes.
 
-### Quickstart
-(Add steps to get up and running quickly)
+A WAR file with a timestamp of `yyMMdd-HH` appended to filename will be generated under `target/microprofile-hello-azure-yyMMdd-HH.war` every time you run `mvn package`.
 
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
+An uber JAR will also be created by default using Payara Micro as the implementation. This will be located under `target/microprofile-hello-azure-yyMMdd-HH-microbundle.jar`.
 
+## Run locally
 
-## Demo
+To run this project locally, can use Payara Micro, one of the implementations of MicroProfile.
 
-A demo app is included to show how to use the project.
+1. Run `mvn package payara-micro:start`.
 
-To run the demo, follow these steps:
+1. Try accessing [localhost:8080/api/hello](http://localhost:8080/api/hello) and [localhost:8080/health](http://localhost:8080/health) in your web browser. If you see the expected "Hello, Azure!" response (and health-related information for the [/health](http://localhost:8080/health) endpoint), you have successfully deployed the MicroProfile application on your local machine.
 
-(Add steps to start up the demo)
+1. (Optional) You can also run the uber JAR directly with `java -jar target/microprofile-hello-azure-*-microbundle.jar`.
 
-1.
-2.
-3.
+## Deploy to Azure
 
-## Resources
+For information on how to deploy this project on Azure, please follow these articles:
 
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
+1. Deploy to Azure App Service
+1. Deploy to Azure Web App for Containers
+1. Deploy to Azure Container Instances
+1. Deploy to Azure Kubernetes Service
+1. Deploy to Azure Compute with Terraform
