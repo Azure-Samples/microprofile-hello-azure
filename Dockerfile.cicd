@@ -3,6 +3,6 @@ COPY src /usr/src/myapp/src
 COPY pom.xml /usr/src/myapp
 RUN mvn -f /usr/src/myapp/pom.xml clean package
 
-FROM payara/micro:5.182
+FROM payara/micro:5.182 as runtime
 COPY --from=mavenBuild /usr/src/myapp/target/*.war $DEPLOY_DIR/ROOT.war
 EXPOSE 8080
