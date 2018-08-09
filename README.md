@@ -27,7 +27,7 @@ public class API {
 }
 ```
 
-Through the use of the `@Path("/hello")` annotation, we can see that this REST endpoint, when combined with the `/api` specified in the `Application` class, will be `/api/hello`. When this endpoint is called using an HTTP GET request, we can see that the method will produce text/html, and in fact it is simply a hard-coded string "Hello, Azure!".  We have now covered all the code required to create a microservice using MicroProfile. We can now use Apache Maven to build and package the WAR file.
+Through the use of the `@Path("/hello")` annotation, we can see that this REST endpoint, when combined with the `/api` specified in the `Application` class, will be `/api/hello`. When this endpoint is called using an HTTP GET request, we can see that the method will produce text/plain, and in fact it is simply a hard-coded string "Hello, Azure!".  We have now covered all the code required to create a microservice using MicroProfile. We can now use Apache Maven to build and package the WAR file.
 
 ## Build and Package
 
