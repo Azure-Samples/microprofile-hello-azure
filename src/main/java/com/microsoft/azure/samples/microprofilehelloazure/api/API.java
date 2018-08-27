@@ -15,6 +15,6 @@ public class API {
   @Path("/hello")
   @Produces(TEXT_PLAIN)
   public String info() {
-    return "Hello, Azure!";
+    return "Hello Azure!";
   }
 }
