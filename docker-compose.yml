@@ -1,4 +1,4 @@
-version: '2'
+version: '1'
 
 services:
   web:
@@ -6,5 +6,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-
+    ports: 
+	 - "8081:8080"
 
